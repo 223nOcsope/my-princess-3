@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>я тебя люблю ♥</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>❤️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;1,300&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#2a2125; --red:#e8435f; --rose:#ff8aa0; --pink:#f3b6c2;
+  --line:#e7dfe1; --gray:#a99fa3; --paper:#ffffff;
+  --fb:'Jost',system-ui,sans-serif; --fi:'Cormorant Garamond',serif; --fs:'Marck Script',cursive;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--fb);font-weight:300;
+  overflow-x:hidden;min-height:100vh;-webkit-tap-highlight-color:transparent}
+body.lock{overflow:hidden}
+[hidden]{display:none!important}
+::selection{background:var(--red);color:#fff}
+::-webkit-scrollbar{width:9px}::-webkit-scrollbar-track{background:#fff}
+::-webkit-scrollbar-thumb{background:var(--pink);border-radius:8px}
+button{font-family:inherit;cursor:pointer;touch-action:manipulation}
+img{display:block}
+
+/* ── плавающие слова ── */
+#floats{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.float{position:absolute;white-space:nowrap;line-height:1;user-select:none;
+  animation:drift var(--t) ease-in-out var(--dl) infinite alternate;will-change:transform}
+.float.fserif{font-family:var(--fi);font-style:italic}
+.float.fscript{font-family:var(--fs)}
+@keyframes drift{
+  from{transform:translate(0,0) rotate(var(--r0))}
+  to{transform:translate(var(--dx),var(--dy)) rotate(var(--r1))}
+}
+
+.page{position:relative;z-index:1;min-height:100svh}
+.enter{animation:fadeUp .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.spark{position:fixed;z-index:80;pointer-events:none;color:var(--red)}
+
+/* ═══ СТРАНИЦА 1 ═══ */
+#page1{display:grid;place-items:center;padding:2rem 1.25rem;padding-bottom:calc(6rem + env(safe-area-inset-bottom))}
+.center{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:600px}
+.ask{font-family:var(--fi);font-style:italic;font-weight:600;
+  font-size:clamp(1.2rem,2.9vw,1.6rem);line-height:1.5;max-width:36ch;margin-bottom:1.8rem}
+.ask b{color:var(--red);font-weight:600}
+.frame{position:relative;border:1.5px solid var(--ink);background:#fff;
+  padding:2rem 1.8rem 1.8rem;width:min(440px,92vw);
+  box-shadow:0 30px 80px -30px rgba(232,67,95,.25)}
+.frame .medal{position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+  width:32px;height:32px;border-radius:50%;background:var(--red);color:#fff;
+  display:grid;place-items:center;font-size:.85rem;box-shadow:0 8px 18px -6px rgba(232,67,95,.6)}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}
+.btn{padding:1rem 0;border-radius:999px;font-size:1.08rem;font-weight:500;letter-spacing:.05em;
+  transition:transform .35s cubic-bezier(.2,1.4,.4,1),box-shadow .35s,border-color .3s}
+.btn:focus-visible{outline:2px dashed var(--red);outline-offset:3px}
+.btn-yes{border:none;color:#fff;background:var(--red);
+  box-shadow:0 16px 32px -12px rgba(232,67,95,.55);animation:beat 2.8s ease-in-out infinite}
+.btn-yes:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 22px 42px -12px rgba(232,67,95,.7)}
+.btn-yes:active{transform:scale(.96)}
+@keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.035)}24%{transform:scale(1)}}
+.btn-no{background:#fff;border:1.5px solid var(--line);color:var(--gray)}
+.btn-no:hover{border-color:var(--rose);color:var(--rose)}
+#extraYes{grid-column:2;opacity:0;transform:translateY(-16px) scale(.85);pointer-events:none;
+  transition:opacity .5s,transform .55s cubic-bezier(.2,1.5,.4,1)}
+#extraYes.show{opacity:1;transform:none;pointer-events:auto}
+
+/* ═══ СТРАНИЦА 2 ═══ */
+#page2{padding:4.5rem 1.25rem calc(5rem + env(safe-area-inset-bottom));text-align:center}
+.h2script{font-family:var(--fs);font-weight:400;font-size:clamp(2.2rem,6vw,3rem);color:var(--red)}
+.back{position:fixed;top:calc(1rem + env(safe-area-inset-top));left:1rem;z-index:40;width:44px;height:44px;
+  border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--gray);font-size:1rem;transition:.3s}
+.back:hover{border-color:var(--red);color:var(--red);transform:translateX(-3px)}
+
+/* два человека */
+.duo{position:relative;display:flex;gap:2.2rem;justify-content:center;flex-wrap:wrap;margin:2.8rem 0 4.5rem}
+.person{width:min(300px,82vw);text-align:center}
+.p-frame{aspect-ratio:3/4;border:1.5px solid var(--line);background:#fff;overflow:hidden;
+  cursor:pointer;transition:transform .4s,border-color .4s,box-shadow .4s}
+.person:hover .p-frame{transform:translateY(-7px);border-color:var(--rose);
+  box-shadow:0 28px 60px -24px rgba(232,67,95,.35)}
+.person.active .p-frame{border-color:var(--red);transform:translateY(-5px) scale(1.02);
+  box-shadow:0 30px 64px -22px rgba(232,67,95,.45)}
+.p-frame img{width:100%;height:100%;object-fit:cover;animation:pop .6s cubic-bezier(.2,1.2,.3,1)}
+.p-cap{margin-top:.8rem;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gray)}
+@keyframes pop{from{transform:scale(.9);opacity:0}}
+
+/* всплывающие фото полукругом */
+.sat{position:absolute;z-index:6;width:84px;height:84px;padding:0;border:3px solid #fff;border-radius:14px;
+  overflow:hidden;background:#fff;box-shadow:0 16px 36px -14px rgba(42,33,37,.4);
+  transform:translate(-50%,-50%) scale(0);opacity:0;
+  transition:transform .55s cubic-bezier(.22,1.4,.36,1) var(--d),opacity .35s var(--d)}
+.sat img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.sat.out{transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) rotate(var(--rot)) scale(1);opacity:1}
+.sat:hover{z-index:7}
+.sat:hover img{transform:scale(1.14)}
+@media(max-width:700px){.sat{width:64px;height:64px;border-radius:12px;border-width:2px}}
+
+/* голосовое */
+.voicewrap{max-width:620px;margin:0 auto;position:relative;z-index:1}
+.vlabel{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gray);margin-bottom:1rem}
+.vlabel::before,.vlabel::after{content:" ♥ ";color:var(--rose)}
+.voicebar{display:flex;align-items:center;gap:.9rem;background:#fff;border:1.5px solid var(--line);
+  padding:1.1rem 1.3rem;box-shadow:0 28px 70px -34px rgba(42,33,37,.25)}
+.vplay{width:52px;height:52px;flex:none;border-radius:50%;border:none;background:var(--red);color:#fff;
+  font-size:1.05rem;display:grid;place-items:center;transition:.3s;
+  box-shadow:0 12px 26px -10px rgba(232,67,95,.6)}
+.vplay:hover{transform:scale(1.08)}
+.vstop{width:42px;height:42px;flex:none;border-radius:50%;border:1.5px solid var(--line);
+  background:#fff;color:var(--gray);font-size:.8rem;transition:.3s}
+.vstop:hover{border-color:var(--red);color:var(--red)}
+.track{flex:1;height:6px;background:var(--line);position:relative;cursor:pointer;min-width:70px}
+.fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--red);transition:width .2s linear}
+.vtime{font-size:.85rem;color:var(--gray);min-width:42px;font-variant-numeric:tabular-nums}
+.vvol{display:flex;align-items:center;gap:.5rem;flex:none}
+.vvol .vicon{font-size:.95rem;color:var(--gray)}
+.vhint{margin-top:.9rem;font-size:.82rem;color:var(--red);display:none}
+@media(max-width:600px){
+  .voicebar{flex-wrap:wrap;justify-content:center}
+  .track{order:5;flex-basis:100%}
+  .vvol{order:6;width:100%;justify-content:center}
+  .vvol input[type=range]{width:min(240px,70vw)}
+}
+
+/* ползунки громкости */
+input[type=range]{-webkit-appearance:none;appearance:none;width:90px;height:5px;border-radius:5px;
+  background:var(--line);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;
+  border-radius:50%;background:var(--red);border:2.5px solid #fff;box-shadow:0 2px 8px rgba(232,67,95,.5)}
+input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--red);
+  border:2.5px solid #fff;box-shadow:0 2px 8px rgba(232,67,95,.5)}
+input[type=range]::-moz-range-track{height:5px;border-radius:5px;background:var(--line)}
+
+/* панель музыки (кнопка + громкость) */
+#musicPanel{position:fixed;left:1rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:50;
+  display:flex;align-items:center;gap:.6rem;background:#fff;border:1.5px solid var(--line);
+  border-radius:999px;padding:.35rem 1rem .35rem .35rem;
+  box-shadow:0 16px 44px -20px rgba(42,33,37,.35)}
+#musicBtn{width:44px;height:44px;flex:none;border-radius:50%;border:none;background:var(--red);
+  color:#fff;font-size:1.05rem;display:grid;place-items:center;transition:.3s;
+  box-shadow:0 10px 22px -8px rgba(232,67,95,.55)}
+#musicBtn:hover{transform:scale(1.08)}
+#musicBtn.need{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(232,67,95,.45)}50%{box-shadow:0 0 0 12px rgba(232,67,95,0)}}
+@media(max-width:380px){input[type=range]{width:74px}}
+
+/* увеличенное фото */
+#lb{position:fixed;inset:0;z-index:60;background:rgba(255,255,255,.96);
+  display:none;place-items:center;padding:2rem}
+#lb.open{display:grid}
+#lb img{max-width:92vw;max-height:82vh;cursor:zoom-out;
+  box-shadow:0 40px 100px -30px rgba(42,33,37,.4);animation:pop .45s cubic-bezier(.2,1.2,.3,1)}
+#lbClose{position:absolute;top:calc(1.2rem + env(safe-area-inset-top));right:1.2rem;width:46px;height:46px;
+  border-radius:50%;border:1.5px solid var(--line);background:#fff;font-size:1rem;color:var(--gray);transition:.3s}
+#lbClose:hover{border-color:var(--red);color:var(--red);transform:rotate(90deg)}
+
+#toast{position:fixed;bottom:calc(5rem + env(safe-area-inset-bottom));left:50%;transform:translate(-50%,20px);
+  z-index:70;opacity:0;background:#fff;border:1.5px solid var(--pink);color:var(--ink);
+  padding:.7rem 1.4rem;border-radius:999px;font-size:.85rem;max-width:88vw;text-align:center;
+  pointer-events:none;transition:.4s;box-shadow:0 16px 40px -18px rgba(232,67,95,.4)}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.15s!important}
+  .float{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div id="floats" aria-hidden="true"></div>
+
+<!-- ═══════ СТРАНИЦА 1 ═══════ -->
+<main id="page1" class="page">
+  <div class="center">
+    <p class="ask">Если ты меня любишь все так же и веришь в наше с тобой будущее — нажми <b>«Да»</b></p>
+    <div class="frame">
+      <b class="medal" aria-hidden="true">♥</b>
+      <div class="btns">
+        <button class="btn btn-yes" id="yesBtn">Да</button>
+        <button class="btn btn-no" id="noBtn">Нет</button>
+      </div>
+      <div class="row2">
+        <span></span>
+        <button class="btn btn-yes" id="extraYes">Да ❤</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ═══════ СТРАНИЦА 2 ═══════ -->
+<main id="page2" class="page" hidden>
+  <button class="back" id="backBtn" aria-label="назад">←</button>
+  <h1 class="h2script">люблю тебя <3</h1>
+
+  <div class="duo" id="duo">
+
+    <!-- ▼ ОСНОВНОЕ ФОТО 1: замени foto1.jpg -->
+    <div class="person" data-set="setA">
+      <div class="p-frame"><img src="foto nika 1.jpg" alt="фото 1"></div>
+      <p class="p-cap">нажми на фото</p>
+    </div>
+
+    <!-- ▼ ОСНОВНОЕ ФОТО 2: замени foto2.jpg -->
+    <div class="person" data-set="setB">
+      <div class="p-frame"><img src="ya foto 2.jpg" alt="фото 2"></div>
+      <p class="p-cap">нажми на фото</p>
+    </div>
+
+    <!-- ▼▼ МАЛЕНЬКИЕ ФОТО ВОКРУГ ПЕРВОГО: вставь свои файлы -->
+    <template id="setA">
+      <img src="nika fotto mini 1.jpg" alt="">
+      <img src="nika mini 2.jpg" alt="">
+      <img src="nika 3 mini.jpg" alt="">
+      <img src="nika mini 4.jpg" alt="">
+      <img src="nika mini 5 foto.jpg" alt="">
+    </template>
+
+    <!-- ▼▼ МАЛЕНЬКИЕ ФОТО ВОКРУГ ВТОРОГО -->
+    <template id="setB">
+      <img src="maks foto mini.jpg" alt="">
+      <img src="maks foto mini 2.jpg" alt="">
+      <img src="maks foto 3 mini.jpg" alt="">
+      <img src="maks foto 4 mini.jpg" alt="">
+      <img src="maks foto 5 mini.jpg" alt="">
+    </template>
+
+  </div>
+
+  <div class="voicewrap">
+    <p class="vlabel">голосовое сообщение</p>
+    <div class="voicebar">
+      <!-- 🎙 замени voice.mp3 (или voice.ogg) -->
+      <audio id="voice" preload="metadata" src="lubimoy zhene.ogg"></audio>
+      <button class="vplay" id="vPlay" aria-label="включить голосовое">▶</button>
+      <button class="vstop" id="vStop" aria-label="остановить">⏹</button>
+      <div class="track" id="vTrack"><div class="fill" id="vFill"></div></div>
+      <span class="vtime" id="vTime">0:00</span>
+      <div class="vvol"><span class="vicon">🔊</span>
+        <input type="range" id="vVol" min="0" max="1" step="0.01" value="1" aria-label="громкость голосового">
+      </div>
+    </div>
+    <p class="vhint" id="vHint">файл не найден — впиши свой вместо voice.mp3 в коде</p>
+  </div>
+</main>
+
+<!-- увеличенное фото -->
+<div id="lb">
+  <img id="lbImg" alt="">
+  <button id="lbClose" aria-label="закрыть">✕</button>
+</div>
+
+<!-- 🎵 замени music.mp3 -->
+<audio id="bgm" loop preload="auto" src="Devkota - FIGURED YOU OUT.mp3"></audio>
+<div id="musicPanel">
+  <button id="musicBtn" aria-label="музыка" title="музыка">♪</button>
+  <input type="range" id="bgmVol" min="0" max="1" step="0.01" value="0.9" aria-label="громкость музыки">
+</div>
+<div id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const REDUCED=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const MOBILE=innerWidth<700;
+
+/* ── «я люблю тебя» на языках мира ── */
+const LANGS=[
+["русский","Я тебя люблю"],["английский","I love you"],["французский","Je t'aime"],
+["испанский","Te amo"],["итальянский","Ti amo"],["португальский","Eu te amo"],
+["немецкий","Ich liebe dich"],["нидерландский","Ik hou van je"],["польский","Kocham Cię"],
+["чешский","Miluji tě"],["украинский","Я тебе кохаю"],["беларуский","Я цябе кахаю"],
+["болгарский","Обичам те"],["сербский","Волим те"],["хорватский","Volim te"],
+["словенский","Ljubim te"],["греческий","Σε αγαπώ"],["турецкий","Seni seviyorum"],
+["арабский","أحبك"],["иврит","אני אוהב אותך"],["персидский","دوستت دارم"],
+["хинди","मैं तुमसे प्यार करता हूँ"],["бенгальский","আমি তোমাকে ভালোবাসি"],
+["тайский","ฉันรักคุณ"],["вьетнамский","Anh yêu em"],["корейский","사랑해"],
+["японский","愛してる"],["китайский","我爱你"],["монгольский","Би чамд хайртай"],
+["казахский","Мен сені жақсы көремін"],["киргизский","Мен сени сүйөм"],
+["узбекский","Men seni sevaman"],["армянский","Ես քеզ սիրում եմ"],["грузинский","მიყვარხარ"],
+["эстонский","Ma armastan sind"],["латышский","Es tevi mīlu"],["литовский","Aš tave myliu"],
+["финский","Rakastan sinua"],["шведский","Jag älskar dig"],["норвежский","Jeg elsker deg"],
+["датский","Jeg elsker dig"],["исландский","Ég elska þig"],["ирландский","Tá grá agam duit"],
+["баскский","Maite zaitut"],["каталанский","T'estimo"],["румынский","Te iubesc"],
+["венгерский","Szeretlek"],["албанский","Të dua"],["латынь","Te amo"],
+["эсперанто","Mi amas vin"],["суахили","Nakupenda"],["амхарский","እወድሻለሁ"],
+["йоруба","Mo nífẹ̀ẹ́ rẹ"],["гавайский","Aloha wau iā 'oe"],["маори","Aroha nui"],
+["кечуа","Munayki"],["гуарани","Rohayhu"],["филиппинский","Mahal kita"],
+["индонезийский","Aku cinta kamu"],["малайский","Saya sayang padamu"],
+["фарерский","Eg elski teg"],["гренландский","Asavakkit"],["мальтийский","Inħobbok"],
+["идиш","איך האָב דיך ליב"],["тви","Me dɔ wo"],["лингала","Nalingi yo"],
+["сомалийский","Waan ku jeclahay"],["малагасийский","Tiako ianao"],
+["курдский","Ez ji te hez dikim"],["таджикский","Ман туро дӯст медорам"],
+["татарский","Мин сине яратам"],["азербайджанский","Səni sevirəm"],
+["туркменский","Men seni söýýärin"],["непальский","म तिमीलाई माया गर्छु"]
+];
+
+/* плавающие слова (на телефоне меньше — чтобы не тормозило) */
+const floats=$('#floats');
+const colors=['rgba(232,67,95,.8)','rgba(255,138,160,.75)','rgba(243,182,194,.9)','rgba(169,159,163,.55)','rgba(232,67,95,.4)'];
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const pick=a=>a[Math.random()*a.length|0];
+const bag=LANGS.slice().sort(()=>Math.random()-.5);
+const WORDS=MOBILE?32:52, HEARTS=MOBILE?6:9;
+for(let i=0;i<WORDS;i++){
+  const [lang,txt]=bag[i%bag.length];
+  const s=document.createElement('span');
+  const cls=Math.random();
+  s.className='float'+(cls<.22?' fscript':cls<.45?' fserif':'');
+  s.textContent=txt;s.title=lang;
+  s.style.cssText=`left:${rnd(-2,96)}%;top:${rnd(-2,98)}%;font-size:${rnd(MOBILE?12:13,MOBILE?30:40)}px;
+    color:${pick(colors)};--t:${rnd(7,16)}s;--dl:${rnd(-14,0)}s;
+    --dx:${rnd(-40,40)}px;--dy:${rnd(-56,-12)}px;--r0:${rnd(-5,5)}deg;--r1:${rnd(-6,6)}deg`;
+  floats.appendChild(s);
+}
+for(let i=0;i<HEARTS;i++){
+  const s=document.createElement('span');
+  s.className='float';s.textContent='♥';
+  s.style.cssText=`left:${rnd(0,97)}%;top:${rnd(0,97)}%;font-size:${rnd(12,24)}px;
+    color:${pick(['rgba(232,67,95,.45)','rgba(255,138,160,.5)','rgba(243,182,194,.7)'])};
+    --t:${rnd(8,15)}s;--dl:${rnd(-12,0)}s;--dx:${rnd(-36,36)}px;--dy:${rnd(-60,-18)}px;
+    --r0:${rnd(-14,14)}deg;--r1:${rnd(-14,14)}deg`;
+  floats.appendChild(s);
+}
+
+/* сердечки по касанию/клику */
+document.addEventListener('pointerdown',e=>{
+  if(REDUCED||e.target.closest('button,a,input'))return;
+  for(let i=0;i<(MOBILE?4:6);i++){
+    const s=document.createElement('span');s.className='spark';s.textContent='♥';
+    s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';
+    s.style.color=pick(['#e8435f','#ff8aa0','#f3b6c2']);s.style.fontSize=rnd(9,16)+'px';
+    document.body.appendChild(s);
+    const a=Math.random()*Math.PI*2,d=rnd(32,72);
+    s.animate([{transform:'translate(-50%,-50%) scale(.5)',opacity:1},
+      {transform:`translate(${Math.cos(a)*d-8}px,${Math.sin(a)*d-8}px) scale(1.2) rotate(${rnd(-90,90)}deg)`,opacity:0}],
+      {duration:rnd(600,950),easing:'cubic-bezier(.2,.8,.3,1)'}).onfinish=()=>s.remove();
+  }
+});
+
+/* ── страницы ── */
+const page1=$('#page1'),page2=$('#page2');
+function show(p){
+  const inEl=p==='p2'?page2:page1;
+  (p==='p2'?page1:page2).hidden=true;
+  inEl.hidden=false;
+  inEl.classList.remove('enter');void inEl.offsetWidth;inEl.classList.add('enter');
+  window.scrollTo(0,0);
+  if(p==='p1'){closeFan();voice.pause();vPlay.textContent='▶';}
+}
+$('#yesBtn').onclick=()=>show('p2');
+$('#extraYes').onclick=()=>show('p2');
+$('#backBtn').onclick=()=>show('p1');
+
+let noCount=0;
+$('#noBtn').onclick=function(){
+  noCount++;
+  if(noCount===1)$('#extraYes').classList.add('show');
+  this.style.transform=`scale(${Math.max(.72,1-noCount*.09)})`;
+};
+
+/* ── 🎵 музыка + громкость ── */
+const bgm=$('#bgm'),musicBtn=$('#musicBtn'),bgmVol=$('#bgmVol');
+let userPaused=false,musicMissing=false;
+bgm.volume=+bgmVol.value;
+bgmVol.oninput=()=>{bgm.volume=+bgmVol.value;};
+function toast(msg){
+  const t=$('#toast');t.textContent=msg;t.classList.add('on');
+  clearTimeout(t._to);t._to=setTimeout(()=>t.classList.remove('on'),4200);
+}
+bgm.addEventListener('error',()=>{musicMissing=true;
+  toast('🎵 чтобы была музыка — положи файл рядом и впиши его имя вместо music.mp3 в коде');});
+function tryPlay(){bgm.play().then(()=>{musicBtn.textContent='❚❚';musicBtn.classList.remove('need');})
+  .catch(()=>musicBtn.classList.add('need'));}
+tryPlay();
+document.addEventListener('pointerdown',function once(){
+  if(!userPaused&&!musicMissing&&bgm.paused)tryPlay();
+  document.removeEventListener('pointerdown',once);
+});
+musicBtn.onclick=()=>{
+  if(musicMissing){toast('впиши свой файл вместо music.mp3 в коде');return;}
+  if(bgm.paused){userPaused=false;tryPlay();}
+  else{userPaused=true;bgm.pause();musicBtn.textContent='♪';}
+};
+
+/* ── 🎙 голосовое + громкость ── */
+const voice=$('#voice'),vPlay=$('#vPlay'),vStop=$('#vStop'),
+      vFill=$('#vFill'),vTime=$('#vTime'),vTrack=$('#vTrack'),vVol=$('#vVol');
+voice.volume=+vVol.value;
+vVol.oninput=()=>{voice.volume=+vVol.value;};
+voice.addEventListener('error',()=>{$('#vHint').style.display='block';});
+const fmt=t=>{t=t||0;return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0');};
+vPlay.onclick=()=>{
+  if(voice.paused){voice.play().then(()=>vPlay.textContent='❚❚').catch(()=>{$('#vHint').style.display='block';});}
+  else{voice.pause();vPlay.textContent='▶';}
+};
+vStop.onclick=()=>{voice.pause();voice.currentTime=0;vPlay.textContent='▶';};
+voice.addEventListener('timeupdate',()=>{
+  if(voice.duration)vFill.style.width=(voice.currentTime/voice.duration*100)+'%';
+  vTime.textContent=fmt(voice.currentTime);
+});
+voice.addEventListener('ended',()=>{vPlay.textContent='▶';vFill.style.width='0';});
+vTrack.onclick=e=>{
+  if(!voice.duration)return;
+  const r=vTrack.getBoundingClientRect();
+  voice.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*voice.duration;
+};
+
+/* ── полукруг из фото (адаптивный) ── */
+const duo=$('#duo'),lb=$('#lb'),lbImg=$('#lbImg');
+let fan=null;
+
+function closeFan(){
+  if(!fan)return;
+  fan.card.classList.remove('active');
+  fan.card.querySelector('.p-cap').textContent='нажми на фото';
+  fan.els.forEach(el=>el.classList.remove('out'));
+  const els=fan.els;fan=null;
+  setTimeout(()=>els.forEach(e=>e.remove()),450);
+}
+function openFan(card){
+  const cR=card.getBoundingClientRect(),dR=duo.getBoundingClientRect();
+  const cx=cR.left-dR.left+cR.width/2, cy=cR.top-dR.top+cR.height*0.42;
+  const imgs=[...document.getElementById(card.dataset.set).content.querySelectorAll('img')];
+  const N=imgs.length;if(!N)return;
+  const satSize=innerWidth<700?64:84;
+  let R=Math.min(190,Math.max(104,cR.width*0.62));
+  R=Math.min(R,cy+26,(dR.width-satSize-16)/2); /* не вылезать за края экрана */
+  R=Math.max(R,72);
+  const els=imgs.map((im,i)=>{
+    const a=Math.PI*((i+0.5)/N);
+    const b=document.createElement('button');
+    b.type='button';b.className='sat';
+    b.style.left=cx+'px';b.style.top=cy+'px';
+    b.style.setProperty('--tx',(Math.cos(a)*R)+'px');
+    b.style.setProperty('--ty',(-Math.sin(a)*R)+'px');
+    b.style.setProperty('--d',(i*70)+'ms');
+    b.style.setProperty('--rot',((i%2?-1:1)*(4+Math.random()*6))+'deg');
+    const img=new Image();img.src=im.getAttribute('src');img.alt='фото';
+    b.appendChild(img);
+    b.onclick=()=>{lbImg.src=im.getAttribute('src');lb.classList.add('open');document.body.classList.add('lock');};
+    duo.appendChild(b);
+    return b;
+  });
+  requestAnimationFrame(()=>requestAnimationFrame(()=>els.forEach(e=>e.classList.add('out'))));
+  card.classList.add('active');
+  card.querySelector('.p-cap').textContent='нажми — убрать';
+  fan={card,els};
+}
+document.querySelectorAll('.person').forEach(card=>{
+  card.querySelector('.p-frame').onclick=()=>{
+    if(fan&&fan.card===card)closeFan();
+    else{closeFan();openFan(card);}
+  };
+});
+/* поворот экрана / изменение размера — убираем веер, чтобы не съехал */
+addEventListener('resize',()=>{if(fan)closeFan();});
+
+/* увеличенное фото */
+function closeLb(){lb.classList.remove('open');document.body.classList.remove('lock');}
+$('#lbClose').onclick=closeLb;
+lbImg.onclick=closeLb;
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb();});
+</script>
+</body>
+</html>
